@@ -1,0 +1,68 @@
+write the following in nodejs. Make it super extreemly robust, full of error catching and reporting via socket.io
+This code is for a service called Bedrock, which is never meant to be updated.
+use 
+  "dependencies": {
+    "dockerode": "^4.0.10",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "simple-git": "^3.36.0",
+    "socket.io": "^4.8.3"
+  }
+
+---- ROUTINES -----
+
+## internal clone-repo-routine:
+Clone github repo to local system if doesn't exist
+
+## User asks for a list of versions
+clone-repo-routine()
+and fetch a list of tags
+publish it
+
+## User asks to Download a specific version
+download routine:
+clone-repo-routine(), and fetch a tag of user's choice
+Pull the docker images from the specified yaml from within the container. Give status updates on how this is going
+
+## User asks to soft restart
+Soft restart routine:
+something like this
+const cmd = `docker compose -f yamlfile.yaml up -d --remove-orphans`;
+unless dockerode does it
+
+## User asks to upgrade to specific version
+download & soft restart
+
+<tag> is a string
+
+socket.io subscriptions:
+list_tags
+download_tag <tag>
+soft_restart
+download_tag_and_soft_restart <tag>
+
+socket.io publishes:
+tags [<tag>...]
+
+status
+{status: "downloading", tag:<tag>, progress:""} // progress is just each line from the stdout
+{status: "download-complete", tag:<tag>} 
+{status: "download-failed", tag:<tag>, reason:""} // reason is the error message
+{status: "pulling-containers", tag:<tag>, progress:} // progress is each line from the stdout
+{status: "pulling-containers-complete", tag:<tag>}
+{status: "pulling-containers-failed", tag:<tag>, reason:""} // reason is any error message we can glean from the pulling process
+{status: "soft-restarting"}
+{status: "soft-restarting-complete"}
+
+Also, host a very light weight html page for listing tags, downloading a tag, and soft-restarting. You might need to make a seperate html for this
+
+here is what the .env looks like: (example)
+
+GITHUB_REPO_URL=https://github.com/MarkSkinner92/ISS300-simulator-manifest
+REPO_FS_LOCATION=/home/pi/production-manifest
+YAML_NAME=production.yaml # This should be found within your REPO_FS_LOCATION
+
+# Remote control information (for a socket.io client)
+# Will also serve a simple http server for a mini html control panel
+HOST=0.0.0.0
+PORT=8080
