@@ -2,14 +2,15 @@
   "name": "bedrock",
   "version": "1.0.0",
   "description": "Bedrock — immutable deployment control service",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node main.js"
   },
   "dependencies": {
     "dockerode": "^4.0.10",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "redis": "^5.12.1",
     "simple-git": "^3.36.0",
     "socket.io": "^4.8.3"
   }
