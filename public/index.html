@@ -10,17 +10,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0a0c0f;
-      --surface:   #111418;
-      --border:    #1e2530;
-      --border-hi: #2e3d52;
-      --amber:     #e8a020;
-      --amber-dim: #7a5210;
-      --red:       #c0392b;
-      --green:     #27ae60;
-      --blue:      #2980b9;
-      --text:      #c8d0dc;
-      --text-dim:  #5a6878;
+      --bg:        #0e1219;
+      --surface:   #161d28;
+      --border:    #283548;
+      --border-hi: #3d5470;
+      --amber:     #f0aa28;
+      --amber-dim: #7a5418;
+      --red:       #d94030;
+      --green:     #28b858;
+      --blue:      #2e86c1;
+      --text:      #dce8f8;
+      --text-dim:  #8098b8;
       --mono:      'Share Tech Mono', monospace;
       --sans:      'Barlow Condensed', sans-serif;
     }
@@ -43,10 +43,10 @@
 
     header {
       border-bottom: 2px solid var(--amber);
-      padding: 18px 32px;
+      padding: 16px 32px;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
       background: var(--surface);
     }
 
@@ -57,11 +57,26 @@
       letter-spacing: 0.3em;
       text-transform: uppercase;
     }
-
     .logo span { color: var(--text-dim); font-size: 0.75rem; letter-spacing: 0.1em; display: block; margin-top: 2px; }
 
-    .conn-pill {
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
       margin-left: auto;
+    }
+
+    .version-pill {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border: 1px solid var(--border-hi);
+      border-radius: 2px;
+      color: var(--text-dim);
+    }
+    .version-pill.has-version { color: var(--amber); border-color: var(--amber-dim); }
+
+    .conn-pill {
       font-family: var(--mono);
       font-size: 0.7rem;
       padding: 4px 12px;
@@ -82,12 +97,11 @@
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 0;
     }
 
     .panel {
       border-bottom: 1px solid var(--border);
-      padding: 20px 24px;
+      padding: 18px 22px;
     }
 
     .panel-title {
@@ -118,22 +132,21 @@
       margin-bottom: 8px;
     }
     .btn:last-child { margin-bottom: 0; }
-    .btn:hover:not(:disabled) { border-color: var(--amber); color: var(--amber); background: rgba(232,160,32,0.06); }
-    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn:hover:not(:disabled) { border-color: var(--amber); color: var(--amber); background: rgba(240,170,40,0.07); }
+    .btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    .btn.danger:hover:not(:disabled) { border-color: var(--red); color: var(--red); background: rgba(192,57,43,0.07); }
-    .btn.primary:hover:not(:disabled) { border-color: var(--green); color: var(--green); background: rgba(39,174,96,0.07); }
+    .btn.danger:hover:not(:disabled)  { border-color: var(--red);   color: var(--red);   background: rgba(217,64,48,0.08); }
+    .btn.primary:hover:not(:disabled) { border-color: var(--green); color: var(--green); background: rgba(40,184,88,0.08); }
 
     .btn-icon { font-size: 1rem; flex-shrink: 0; }
 
     /* ── Tag List ── */
     .tag-list {
-      max-height: 280px;
+      max-height: 260px;
       overflow-y: auto;
       scrollbar-width: thin;
       scrollbar-color: var(--border-hi) transparent;
     }
-
     .tag-list::-webkit-scrollbar { width: 4px; }
     .tag-list::-webkit-scrollbar-track { background: transparent; }
     .tag-list::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 2px; }
@@ -151,10 +164,19 @@
       transition: all 0.12s;
       margin-bottom: 3px;
     }
-    .tag-item:hover { border-color: var(--border-hi); color: var(--text); background: rgba(255,255,255,0.03); }
-    .tag-item.selected { border-color: var(--amber-dim); color: var(--amber); background: rgba(232,160,32,0.08); }
+    .tag-item:hover   { border-color: var(--border-hi); color: var(--text); background: rgba(255,255,255,0.04); }
+    .tag-item.selected { border-color: var(--amber-dim); color: var(--amber); background: rgba(240,170,40,0.09); }
 
-    .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .tag-dot  { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .tag-live {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 1px 5px;
+      border-radius: 1px;
+      margin-left: auto;
+    }
 
     .tag-actions {
       display: flex;
@@ -176,7 +198,6 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      padding: 0;
       overflow: hidden;
     }
 
@@ -205,10 +226,10 @@
       border-radius: 1px;
       margin-left: auto;
     }
-    .log-badge.idle        { color: var(--text-dim); }
-    .log-badge.working     { color: var(--amber); }
-    .log-badge.success     { color: var(--green); }
-    .log-badge.fail        { color: var(--red); }
+    .log-badge.idle    { color: var(--text-dim); }
+    .log-badge.working { color: var(--amber); }
+    .log-badge.success { color: var(--green); }
+    .log-badge.fail    { color: var(--red); }
 
     .log-scroll {
       flex: 1;
@@ -228,8 +249,7 @@
       display: flex;
       gap: 12px;
     }
-
-    .log-ts { color: var(--text-dim); flex-shrink: 0; }
+    .log-ts  { color: var(--text-dim); flex-shrink: 0; }
     .log-msg { flex: 1; word-break: break-all; }
 
     .log-entry.info    .log-msg { color: var(--text); }
@@ -256,14 +276,17 @@
       BEDROCK
       <span>deployment control</span>
     </div>
-    <div id="connPill" class="conn-pill disconnected">● DISCONNECTED</div>
+    <div class="header-meta">
+      <div id="versionPill" class="version-pill">DEPLOYED: —</div>
+      <div id="connPill" class="conn-pill disconnected">● DISCONNECTED</div>
+    </div>
   </header>
 
   <main>
     <!-- ── Sidebar ── -->
     <aside class="sidebar">
 
-      <!-- Refresh tags -->
+      <!-- Repository -->
       <div class="panel">
         <div class="panel-title">// repository</div>
         <button class="btn" id="btnRefresh">
@@ -282,16 +305,22 @@
             ↓ DOWNLOAD
           </button>
           <button class="btn danger" id="btnUpgrade" disabled>
-            ↑ UPGRADE
+            ↑ DEPLOY
           </button>
         </div>
       </div>
 
-      <!-- Soft restart -->
+      <!-- Operations -->
       <div class="panel">
         <div class="panel-title">// operations</div>
-        <button class="btn danger" id="btnRestart">
+        <button class="btn" id="btnGetVersion">
+          <span class="btn-icon">?</span> CHECK VERSION
+        </button>
+        <button class="btn" id="btnRestart">
           <span class="btn-icon">↺</span> SOFT RESTART
+        </button>
+        <button class="btn danger" id="btnStop">
+          <span class="btn-icon">■</span> STOP PRODUCTION
         </button>
       </div>
 
@@ -314,29 +343,34 @@
 (function () {
   'use strict';
 
-  // ── State ────────────────────────────────────────────────────────────────
-  let selectedTag = null;
-  let isBusy      = false;
-  const tags      = [];
+  // ── State ─────────────────────────────────────────────────────────────────
+  let selectedTag    = null;
+  let isBusy         = false;
+  let currentVersion = null;
+  const tags         = [];
 
-  // ── DOM refs ─────────────────────────────────────────────────────────────
+  // ── DOM refs ──────────────────────────────────────────────────────────────
   const connPill    = document.getElementById('connPill');
+  const versionPill = document.getElementById('versionPill');
   const tagList     = document.getElementById('tagList');
   const btnRefresh  = document.getElementById('btnRefresh');
   const btnDownload = document.getElementById('btnDownload');
   const btnUpgrade  = document.getElementById('btnUpgrade');
   const btnRestart  = document.getElementById('btnRestart');
+  const btnStop     = document.getElementById('btnStop');
+  const btnGetVersion = document.getElementById('btnGetVersion');
   const btnClear    = document.getElementById('btnClear');
   const logScroll   = document.getElementById('logScroll');
   const statusBadge = document.getElementById('statusBadge');
 
-  // ── Socket ───────────────────────────────────────────────────────────────
+  // ── Socket ────────────────────────────────────────────────────────────────
   const socket = io({ reconnectionDelay: 1500, reconnectionDelayMax: 8000 });
 
   socket.on('connect', () => {
-    connPill.textContent  = '● CONNECTED';
-    connPill.className    = 'conn-pill connected';
+    connPill.textContent = '● CONNECTED';
+    connPill.className   = 'conn-pill connected';
     log('Connected to Bedrock.', 'success');
+    socket.emit('get_version');
   });
 
   socket.on('disconnect', (reason) => {
@@ -350,7 +384,22 @@
     log(`Connection error: ${err.message}`, 'error');
   });
 
-  // ── Tags ─────────────────────────────────────────────────────────────────
+  // ── Version ───────────────────────────────────────────────────────────────
+  socket.on('version', ({ tag }) => {
+    currentVersion = tag;
+    if (tag) {
+      versionPill.textContent = `DEPLOYED: ${tag}`;
+      versionPill.classList.add('has-version');
+      log(`Current deployed version: ${tag}`, 'info');
+    } else {
+      versionPill.textContent = 'DEPLOYED: —';
+      versionPill.classList.remove('has-version');
+      log('No version deployed (repo not cloned or HEAD not on a tag).', 'dim');
+    }
+    renderTags();
+  });
+
+  // ── Tags ──────────────────────────────────────────────────────────────────
   socket.on('tags', (incoming) => {
     tags.length = 0;
     tags.push(...(Array.isArray(incoming) ? incoming : []));
@@ -359,7 +408,7 @@
     log(`Received ${tags.length} tag(s).`, 'info');
   });
 
-  // ── Status ───────────────────────────────────────────────────────────────
+  // ── Status ────────────────────────────────────────────────────────────────
   socket.on('status', (s) => {
     switch (s.status) {
       case 'cloning':
@@ -381,6 +430,7 @@
         setStatusBadge('success', 'DONE');
         log(`✓ Download complete: ${s.tag}`, 'success');
         setBusy(false);
+        socket.emit('get_version');
         break;
 
       case 'download-failed':
@@ -414,6 +464,19 @@
         setStatusBadge('success', 'DONE');
         log('✓ Soft restart complete.', 'success');
         setBusy(false);
+        socket.emit('get_version');
+        break;
+
+      case 'stopping':
+        setStatusBadge('working', 'STOPPING');
+        if (s.progress) log(`[stop] ${s.progress}`, 'dim');
+        else log('Stopping production stack...', 'warn');
+        break;
+
+      case 'stopped':
+        setStatusBadge('success', 'STOPPED');
+        log('✓ Production stack stopped.', 'success');
+        setBusy(false);
         break;
 
       case 'error':
@@ -436,6 +499,11 @@
     socket.emit('list_tags');
   });
 
+  btnGetVersion.addEventListener('click', () => {
+    log('Checking current version...', 'info');
+    socket.emit('get_version');
+  });
+
   btnDownload.addEventListener('click', () => {
     if (!selectedTag || isBusy) return;
     if (!confirm(`Download version ${selectedTag}?`)) return;
@@ -446,9 +514,9 @@
 
   btnUpgrade.addEventListener('click', () => {
     if (!selectedTag || isBusy) return;
-    if (!confirm(`Download + soft restart to version ${selectedTag}?`)) return;
+    if (!confirm(`Download + deploy version ${selectedTag}?`)) return;
     setBusy(true);
-    log(`Requesting upgrade: ${selectedTag}`, 'warn');
+    log(`Requesting deploy: ${selectedTag}`, 'warn');
     socket.emit('download_tag_and_soft_restart', selectedTag);
   });
 
@@ -458,6 +526,14 @@
     setBusy(true);
     log('Requesting soft restart...', 'warn');
     socket.emit('soft_restart');
+  });
+
+  btnStop.addEventListener('click', () => {
+    if (isBusy) return;
+    if (!confirm('Stop the production stack? All containers will be removed.')) return;
+    setBusy(true);
+    log('Requesting production stop...', 'warn');
+    socket.emit('stop');
   });
 
   btnClear.addEventListener('click', () => {
@@ -475,9 +551,11 @@
 
     tagList.innerHTML = '';
     for (const tag of tags) {
-      const el = document.createElement('div');
-      el.className = 'tag-item' + (tag === selectedTag ? ' selected' : '');
-      el.innerHTML = `<div class="tag-dot"></div>${escHtml(tag)}`;
+      const el        = document.createElement('div');
+      const isLive    = tag === currentVersion;
+      el.className    = 'tag-item' + (tag === selectedTag ? ' selected' : '');
+      el.innerHTML    = `<div class="tag-dot"></div>${escHtml(tag)}`
+                      + (isLive ? '<span class="tag-live">LIVE</span>' : '');
       el.addEventListener('click', () => selectTag(tag));
       tagList.appendChild(el);
     }
@@ -497,11 +575,13 @@
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
-  function setBusy(state) {
-    isBusy = state;
-    btnRefresh.disabled = state;
-    btnRestart.disabled = state;
-    if (!state) {
+  function setBusy(busy) {
+    isBusy = busy;
+    btnRefresh.disabled   = busy;
+    btnRestart.disabled   = busy;
+    btnStop.disabled      = busy;
+    btnGetVersion.disabled = busy;
+    if (!busy) {
       setStatusBadge('idle', 'IDLE');
       updateTagButtons();
     } else {
@@ -511,7 +591,7 @@
   }
 
   function setStatusBadge(cls, text) {
-    statusBadge.className = `log-badge ${cls}`;
+    statusBadge.className   = `log-badge ${cls}`;
     statusBadge.textContent = text;
     if (cls === 'working') statusBadge.classList.add('blinking');
     else statusBadge.classList.remove('blinking');
@@ -519,14 +599,13 @@
 
   function log(msg, level = 'info') {
     if (!msg || !msg.toString().trim()) return;
-    const entry  = document.createElement('div');
+    const entry     = document.createElement('div');
     entry.className = `log-entry ${level}`;
-    const ts     = new Date().toTimeString().slice(0, 8);
+    const ts        = new Date().toTimeString().slice(0, 8);
     entry.innerHTML = `<span class="log-ts">${ts}</span><span class="log-msg">${escHtml(msg.toString())}</span>`;
     logScroll.appendChild(entry);
     logScroll.scrollTop = logScroll.scrollHeight;
 
-    // Cap log at 1000 entries
     while (logScroll.children.length > 1000) {
       logScroll.removeChild(logScroll.firstChild);
     }

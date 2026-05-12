@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
     console.error(`[BEDROCK] Socket error from ${socket.id}:`, err);
   });
 
-  for (const event of ['list_tags', 'download_tag', 'soft_restart', 'download_tag_and_soft_restart', 'get_version']) {
+  for (const event of ['list_tags', 'download_tag', 'soft_restart', 'download_tag_and_soft_restart', 'stop', 'get_version']) {
     socket.on(event, (payload) => {
       console.log(`[BEDROCK] [${socket.id}] ${event}`, payload ?? '');
       dispatch(event, payload, createEmitter(socket));
