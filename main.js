@@ -9,6 +9,7 @@ const CONFIG = require('./lib/config');
 const { createEmitter } = require('./lib/emitter');
 const { startCommandSubscriber } = require('./lib/subscriber');
 const { dispatch } = require('./lib/routines');
+const { dockerComposeDown } = require('./lib/docker');
 
 // ─── Express + Socket.IO Setup ───────────────────────────────────────────────
 
@@ -20,6 +21,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/in-progress', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'in-progress.html'));
+});
+
+// Synchronous stop — blocks until docker compose down completes, then responds.
+// Used by sim.sh so it can wait before bringing up a different stack.
+app.post('/api/stop', async (_req, res) => {
+  console.log('[BEDROCK] POST /api/stop received');
+  try {
+    await dockerComposeDown(createEmitter(io));
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[BEDROCK] POST /api/stop failed:', err.message);
+    res.status(500).json({ ok: false, reason: err.message });
+  }
 });
 
 // ─── Redis Command Subscriber ────────────────────────────────────────────────
@@ -45,7 +63,7 @@ io.on('connection', (socket) => {
   for (const event of ['list_tags', 'download_tag', 'soft_restart', 'download_tag_and_soft_restart', 'stop', 'get_version']) {
     socket.on(event, (payload) => {
       console.log(`[BEDROCK] [${socket.id}] ${event}`, payload ?? '');
-      dispatch(event, payload, createEmitter(socket));
+      dispatch(event, payload, createEmitter(io));
     });
   }
 });
